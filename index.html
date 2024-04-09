@@ -23,7 +23,7 @@
         </div>
         <div class="conteudo-senha">
             <label for="senha">Senha</label>
-            <input name="senha" type="text" id="campo-senha" />
+            <input name="senha" type="text" id="campo-senha" readonly>
         </div>
     </section>
     <div class="parametro">
@@ -63,54 +63,97 @@
                 <div class="parametro-senha">
                     <h4 class="parametro-senha__titulo">Força da senha</h4>
                     <div class="barra"></div>
-                    <div class="fraca"></div>
-                    <div class="parametro-senha-textos"></div>
-                    <p>Fraca</p>
-                    <p>Média</p>
-                    <p>Forte</p>
+                    <div class="forca fraca"></div>
+                    <div class="parametro-senha-textos">
+                        <p>Fraca</p>
+                        <p>Média</p>
+                        <p>Forte</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <script>
-            const numeroSenha = document.querySelector('.parametro-senha__texto');
-            let tamanhoSenha = 12;
-            numeroSenha.textContent = tamanhoSenha;
+            <script>
+                const numeroSenha = document.querySelector('.parametro-senha__texto');
+                let tamanhoSenha = 12;
+                numeroSenha.textContent = tamanhoSenha;
 
-            const botoes = document.querySelectorAll('.parametro-senha__botao');
+                const botoes = document.querySelectorAll('.parametro-senha__botao');
 
-            function diminuiTamanho() {
-                tamanhoSenha = tamanhoSenha - 1;
-                numeroSenha.textContent = tamanhoSenha
-            }
-            function diminuiTamanho() {
-                if (tamanhoSenha > 1) {
-                    // tamanhoSenha = tamanhoSenha - 1;
-                    tamanhoSenha--;
+                function diminuiTamanho() {
+                    if (tamanhoSenha > 1) {
+                        // tamanhoSenha = tamanhoSenha-1;
+                        tamanhoSenha--;
+                    }
+                    numeroSenha.textContent = tamanhoSenha;
+                    geraSenha();
                 }
-                numeroSenha.textContent = tamanhoSenha;
-            }
 
-            function aumentaTamanho() {
-                if (tamanhoSenha < 20) {
-                    tamanhoSenha = tamanhoSenha + 1;
-                    tamanhoSenha++;
+                function aumentaTamanho() {
+                    if (tamanhoSenha < 20) {
+                        // tamanhoSenha = tamanhoSenha+1;
+                        tamanhoSenha++;
+                    }
+                    numeroSenha.textContent = tamanhoSenha;
+                    geraSenha();
                 }
-                numeroSenha.textContent = tamanhoSenha;
-            }
-            function aumentaTamanho() {
-                tamanhoSenha = tamanhoSenha + 1;
-                numeroSenha.textContent = tamanhoSenha;
-            }
 
-            botoes[0].onclick = diminuiTamanho;
-            botoes[1].onclick = aumentaTamanho;
+
+                botoes[0].onclick = diminuiTamanho;
+                botoes[1].onclick = aumentaTamanho;
 
 
 
 
-            console.log(botoes);
+                console.log(botoes);
+                const forcaSenha = document.querySelector('forca');
+                const campoSenha = document.querySelector('#campo-senha');
+                const checkbox = document.querySelectorAll('.checkbox');
 
-        </script>
+                console.log(checkbox[0].checked);
+                const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVXYWZ';
+                const letrasMinusculas = 'abcdefghijklmnopqrstuvxywz';
+                const numeros = '0123456789';
+                const simbolos = '!@%*?';
+                let alfabeto = '';
+                if (checkbox[0].checked) {
+                    alfabeto = alfabeto + letrasMaiusculas;
+                }
+                console.log(alfabeto);
+                
+                function classificaSenha() {
+                    forcaSenha.classList.remove('fraca', 'media', 'forte');
+                    if (tamanhoSenha > 11) {
+                        forcaSenha.classList.add('forte');
+                    } else if (tamanhoSenha > 5 && tamanhoSenha < 12) {
+                        forcaSenha.classList.add('media');
+                    } else if (tamanhoSenha <= 5) {
+                        forcaSenha.classList.add('fraca');
+                    }
+                }
+                function geraSenha() {
+                    let alfabeto = '';
+                    if (checkbox[0].checked) {
+                        alfabeto = alfabeto + letrasMaiusculas;
+                    }
+                    if (checkbox[1].checked) {
+                        alfabeto = alfabeto + letrasMinusculas;
+                    }
+                    if (checkbox[2].checked) {
+                        alfabeto = alfabeto + numeros;
+                    }
+                    if (checkbox[3].checked) {
+                        alfabeto = alfabeto + simbolos;
+                    }
+                    console.log(alfabeto);
+                    let senha = '';
+                    for (let i = 0; i < tamanhoSenha; i++) {
+                        let numeroAleatorio = Math.random() * alfabeto.length;
+                        numeroAleatorio = Math.floor(numeroAleatorio);
+                        senha = senha + alfabeto[numeroAleatorio];
+                    }
+                    campoSenha.value = senha;
+                    classificaSenha();
+                }   
+            </script>
 </body>
 
 

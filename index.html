@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <html lang="pt-BR">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de senhas</title>
+    <title>Gerador de senha</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
@@ -25,22 +19,17 @@
             <label for="senha">Senha</label>
             <input name="senha" type="text" id="campo-senha" readonly>
         </div>
-    </section>
-    <div class="parametro">
-        <h3 class="parametro-titulo">Personalize sua senha</h3>
-        <div class="parametro-coluna__senha">
-            <div class="parametro-senha">
-                <h4 class="parametro-senha__titulo">Número de caracteres</h4>
-                <div class="parametro-senha-botoes">
-                    <button class="parametro-senha__botao">-</button>
-                    <p class="parametro-senha__texto">12</p>
-                    <button class="parametro-senha__botao">+</button>
-                </div>
-            </div>
+        <div class="parametro">
+            <h3 class="parametro-titulo">Personalize sua senha</h3>
             <div class="parametro-coluna__senha">
                 <div class="parametro-senha">
                     <h4 class="parametro-senha__titulo">Número de caracteres</h4>
-                </div>
+                    <div class="parametro-senha-botoes">
+                        <button class="parametro-senha__botao">-</button>
+                        <p class="parametro-senha__texto">12</p>
+                        <button class="parametro-senha__botao">+</button>
+                    </div>
+                </div>               
                 <div class="parametro-senha">
                     <h4 class="parametro-senha__titulo">Características da senha</h4>
                     <div class="parametro-senha-checkbox">
@@ -69,93 +58,11 @@
                         <p>Média</p>
                         <p>Forte</p>
                     </div>
+                    <p class="entropia"></p>
                 </div>
             </div>
-            <script>
-                const numeroSenha = document.querySelector('.parametro-senha__texto');
-                let tamanhoSenha = 12;
-                numeroSenha.textContent = tamanhoSenha;
-
-                const botoes = document.querySelectorAll('.parametro-senha__botao');
-
-                function diminuiTamanho() {
-                    if (tamanhoSenha > 1) {
-                        // tamanhoSenha = tamanhoSenha-1;
-                        tamanhoSenha--;
-                    }
-                    numeroSenha.textContent = tamanhoSenha;
-                    geraSenha();
-                }
-
-                function aumentaTamanho() {
-                    if (tamanhoSenha < 20) {
-                        // tamanhoSenha = tamanhoSenha+1;
-                        tamanhoSenha++;
-                    }
-                    numeroSenha.textContent = tamanhoSenha;
-                    geraSenha();
-                }
-
-
-                botoes[0].onclick = diminuiTamanho;
-                botoes[1].onclick = aumentaTamanho;
-
-
-
-
-                console.log(botoes);
-                const forcaSenha = document.querySelector('forca');
-                const campoSenha = document.querySelector('#campo-senha');
-                const checkbox = document.querySelectorAll('.checkbox');
-
-                console.log(checkbox[0].checked);
-                const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVXYWZ';
-                const letrasMinusculas = 'abcdefghijklmnopqrstuvxywz';
-                const numeros = '0123456789';
-                const simbolos = '!@%*?';
-                let alfabeto = '';
-                if (checkbox[0].checked) {
-                    alfabeto = alfabeto + letrasMaiusculas;
-                }
-                console.log(alfabeto);
-                
-                function classificaSenha() {
-                    forcaSenha.classList.remove('fraca', 'media', 'forte');
-                    if (tamanhoSenha > 11) {
-                        forcaSenha.classList.add('forte');
-                    } else if (tamanhoSenha > 5 && tamanhoSenha < 12) {
-                        forcaSenha.classList.add('media');
-                    } else if (tamanhoSenha <= 5) {
-                        forcaSenha.classList.add('fraca');
-                    }
-                }
-                function geraSenha() {
-                    let alfabeto = '';
-                    if (checkbox[0].checked) {
-                        alfabeto = alfabeto + letrasMaiusculas;
-                    }
-                    if (checkbox[1].checked) {
-                        alfabeto = alfabeto + letrasMinusculas;
-                    }
-                    if (checkbox[2].checked) {
-                        alfabeto = alfabeto + numeros;
-                    }
-                    if (checkbox[3].checked) {
-                        alfabeto = alfabeto + simbolos;
-                    }
-                    console.log(alfabeto);
-                    let senha = '';
-                    for (let i = 0; i < tamanhoSenha; i++) {
-                        let numeroAleatorio = Math.random() * alfabeto.length;
-                        numeroAleatorio = Math.floor(numeroAleatorio);
-                        senha = senha + alfabeto[numeroAleatorio];
-                    }
-                    campoSenha.value = senha;
-                    classificaSenha();
-                }   
-            </script>
-</body>
-
-
-
+        </div>
+    </section>
+    <script src="main.js"></script>
+</body> 
 </html>
